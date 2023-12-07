@@ -9,7 +9,8 @@ services:
       - spring-net
     restart: "on-failure"
     depends_on:
-      - person-mysql
+      person-mysql:
+        condition: service_started
     image: person-service:latest
     ports:
       - 8081:8081
@@ -23,7 +24,7 @@ services:
       - spring-net
     environment:
       - MYSQL_ROOT_PASSWORD=00000000
-      - MYSQL_DATABASE=test
+      - MYSQL_DATABASE=person_db
     volumes:
       - persondata:/var/lib/mysql
       - persondata:/etc/mysql/conf.d
